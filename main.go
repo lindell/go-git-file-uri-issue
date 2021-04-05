@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -15,9 +16,11 @@ func main() {
 	// Deletes repositories to clone if already existing
 	cleanup(wd)
 
+	firstRepoLocalPath, err := ioutil.TempDir(os.TempDir(), "go-git-first-clone")
+	handleErr(err)
+
 	remoteURL := "https://github.com/go-git/go-git"
 	fmt.Printf("Cloning from remote URL: %s\n", remoteURL)
-	firstRepoLocalPath := filepath.Join(wd, "go-git-first-clone")
 	_, err = git.PlainClone(firstRepoLocalPath, false, &git.CloneOptions{
 		URL:      remoteURL,
 		Progress: os.Stdout,
