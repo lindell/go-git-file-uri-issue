@@ -25,7 +25,7 @@ func main() {
 	handleErr(err)
 
 	secondRepoLocalPath := filepath.Join(wd, "go-git-second-clone")
-	firstRepoFileURI := fmt.Sprintf("file:///%s", filepath.ToSlash(firstRepoLocalPath))
+	firstRepoFileURI := fmt.Sprintf(`file://"%s"`, filepath.ToSlash(firstRepoLocalPath))
 	// In case there are spaces in the file URI
 	firstRepoFileURI = strings.ReplaceAll(firstRepoFileURI, " ", "%20")
 	fmt.Printf("Cloning from local URI: %s\n", firstRepoFileURI)
